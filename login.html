@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login — To‑Do List</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* small, local tweaks for login page */
+    .login-wrap{ max-width:420px; margin:80px auto; padding:24px; background:rgba(255,255,255,0.02); border-radius:12px }
+    .login-wrap h2{ margin:0 0 8px }
+    .login-form{ display:flex; flex-direction:column; gap:10px }
+    .login-form input{ padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit }
+    .login-form button{ padding:10px 12px; border-radius:8px; border:0; background:linear-gradient(160deg,#7c3aed,#5b21b6); color:white; font-weight:600; cursor:pointer }
+    .note{ color:var(--muted); font-size:13px }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="login-wrap">
+      <h2>Welcome</h2>
+      <p class="note">Enter any username to continue (demo only — no real authentication).</p>
+
+      <form id="login-form" class="login-form" autocomplete="off">
+        <input id="username" type="text" placeholder="Username" required aria-label="Username">
+        <input id="password" type="password" placeholder="Password (optional)" aria-label="Password">
+        <button type="submit">Login</button>
+      </form>
+
+      <p style="margin-top:12px" class="note">After login you'll be taken to the To‑Do app.</p>
+    </div>
+  </div>
+
+  <script>
+    // Very small demo login: store `todo_user` in localStorage and redirect.
+    var form = document.getElementById('login-form');
+    var usernameInput = document.getElementById('username');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = (usernameInput.value || '').trim();
+      if (!name) return alert('Enter a username');
+      try { localStorage.setItem('todo_user', name); } catch(e){ console.error(e); }
+      // redirect to main app
+      window.location = 'index.html';
+    });
+  </script>
+</body>
+</html>

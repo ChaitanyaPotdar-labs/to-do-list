@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To‑Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="app-header">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px">
+                <div>
+                    <h1>To‑Do List</h1>
+                    <p class="subtitle">Add tasks, mark complete, delete — changes are saved in your browser.</p>
+                </div>
+                <div style="text-align:right">
+                    <div id="user-info" style="font-size:13px; color:var(--muted)">Not signed in</div>
+                    <button id="logout-btn" style="margin-top:6px; padding:6px 10px; border-radius:8px; border:0; background:transparent; color:var(--muted); cursor:pointer">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <section class="new-task">
+                <form id="new-task-form" aria-label="Add new task">
+                    <input id="new-task-input" type="text" placeholder="What do you want to get done today?" aria-label="New task" required>
+                    <button id="add-btn" type="submit">Add task</button>
+                </form>
+            </section>
+
+            <section class="tasks">
+                <ul id="task-list" aria-live="polite" aria-label="Your tasks"></ul>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <small>Made by  chaitanya — simple, offline, and accessible.</small>
+        </footer>
+    </div>
+
+    <script>
+        // Redirect to login page when user is not set.
+        (function(){
+            try{
+                var user = localStorage.getItem('todo_user');
+                if(!user){
+                    window.location = 'login.html';
+                    return;
+                }
+                var info = document.getElementById('user-info');
+                if(info) info.textContent = 'Signed in as ' + user;
+                var logout = document.getElementById('logout-btn');
+                if(logout) logout.addEventListener('click', function(){
+                    try{ localStorage.removeItem('todo_user'); }catch(e){}
+                    window.location = 'login.html';
+                });
+            }catch(e){ console.error(e); }
+        })();
+    </script>
+    <script src="app_scipt.js"></script>
+</body>
+</html>
